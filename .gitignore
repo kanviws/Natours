@@ -1,0 +1,11 @@
+config.env
+.env
+<<<<<<< HEAD
+.cache/
+node_modules/
+public/js/stripe/
+public/js/mapbox/
+=======
+cache/
+node_modules/
+>>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708

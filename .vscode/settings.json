@@ -1,0 +1,12 @@
+{
+  "editor.wordWrap": "off",
+  "editor.formatOnPaste": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "workbench.colorTheme": "Oceanic Next (dimmed bg)",
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "files.autoSave": "off",
+  "editor.fontSize": 15,
+  "editor.autoIndentOnPaste": true,
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true
+}
