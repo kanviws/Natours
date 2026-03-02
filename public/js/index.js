@@ -34,7 +34,6 @@ if (userDataForm) {
     form.append('name', document.getElementById('name').value);
     form.append('email', document.getElementById('email').value);
     form.append('password', document.getElementById('password').value);
-    console.log('hello', form);
     updateSettings(form, 'data');
   });
 }
@@ -60,7 +59,7 @@ if (userPasswordForm) {
 
 if (bookBtn)
   bookBtn.addEventListener('click', (e) => {
-    console.log('Book tour button found ✅');
+    // console.log('Book tour button found ✅');
     e.target.textContent = 'Processing...';
     const { tourId } = e.target.dataset;
     bookTour(tourId);

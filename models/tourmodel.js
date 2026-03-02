@@ -40,10 +40,7 @@ const tourSchema = new mongoose.Schema(
         5,
         'bus bhai hava mein udaiga kya juthe 5 highest hai aukat mein likh',
       ],
-<<<<<<< HEAD
       set: (val) => Math.round(val * 10) / 10,
-=======
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
     },
     ratingsQuantity: {
       type: Number,
@@ -131,12 +128,9 @@ const tourSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   },
 );
-<<<<<<< HEAD
 tourSchema.index({ startLocation: '2dsphere' });
 tourSchema.index({ price: 1, ratingsAverage: -1 });
 tourSchema.index({ slug: 1 });
-=======
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
 
 tourSchema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
@@ -165,23 +159,16 @@ tourSchema.pre(/^find/, function () {
   });
 });
 
-tourSchema.post(/^find/, function (docs) {
-  console.log(`Query took ${Date.now() - this.start} milliseconds!`);
-  // console.log(docs);
-});
+// tourSchema.post(/^find/, function (docs) {
+//   console.log(`Query took ${Date.now() - this.start} milliseconds!`);
+//   // console.log(docs);
+// });
 
 // Aggregation Middleware
-<<<<<<< HEAD
 // tourSchema.pre('aggregate', function () {
 //   this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
 //   console.log(this.pipeline());
 // });
-=======
-tourSchema.pre('aggregate', function () {
-  this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
-  console.log(this.pipeline);
-});
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
 
 const Tour = mongoose.model('Tour', tourSchema);
 module.exports = Tour;
@@ -197,8 +184,4 @@ module.exports = Tour;
 // });
 // tourSchema.post('save', function (doc) {
 //   console.log(doc);
-<<<<<<< HEAD
 // });]
-=======
-// });
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708

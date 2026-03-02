@@ -18,7 +18,7 @@ exports.getAllTours = async (req, res) => {
       ...req.query,
       ...(req.aliasQuery || {}),
     };
-    console.log(queryData);
+    // console.log(queryData);
 
     const queryObj = { ...queryData };
     const excludedFields = ['page', 'sort', 'limit', 'fields'];

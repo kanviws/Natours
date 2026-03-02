@@ -6,10 +6,6 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'a user must have a name'],
-<<<<<<< HEAD
-=======
-    unique: true,
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
     trim: true,
   },
   photo: String,
@@ -77,7 +73,7 @@ userSchema.methods.changedPasswordAfter = function (JWTTimeStamp) {
       this.passwordChangedAt.getTime() / 1000,
       10,
     );
-    console.log(this.changedTimeStamp, JWTTimeStamp);
+    // console.log(this.changedTimeStamp, JWTTimeStamp);
     return JWTTimeStamp < changedTimeStamp;
   }
   return false;
@@ -89,7 +85,7 @@ userSchema.methods.createPasswordResetToken = function () {
     .createHash('sha256')
     .update(resetToken)
     .digest('hex');
-  console.log({ resetToken }, this.passwordResetToken);
+  // console.log({ resetToken }, this.passwordResetToken);
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
   return resetToken;
 };

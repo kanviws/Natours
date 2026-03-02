@@ -64,6 +64,7 @@ app.use(
   }),
 );
 
+app.use(compression());
 // const app = express();
 //
 

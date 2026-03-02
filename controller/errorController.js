@@ -1,17 +1,13 @@
 const AppError = require('./../utils/apperror');
-<<<<<<< HEAD
 
 // ==========================
 // DB ERROR HANDLERS
 // ==========================
 
-=======
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
 const handleCastErrorDB = (err) => {
   const message = `Invalid ${err.path}: ${err.value}.`;
   return new AppError(message, 400);
 };
-<<<<<<< HEAD
 
 // const handleDuplicateFieldsDB = (err) => {
 //   const value = err.errmsg.match(/(["'])(?:\\.|[^\\])*?\1/);
@@ -24,21 +20,12 @@ const handleDuplicateFieldsDB = (err) => {
   return new AppError(message, 400);
 };
 
-=======
-const handleDuplicateFieldsDB = (err) => {
-  const value = err.errmsg.match(/(["'])(?:\\.|[^\\])*?\1/);
-  // console.log(value)
-  const message = `duplicate ${value}: enter another name for that`;
-  return new AppError(message, 400);
-};
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
 const handleValidationErrorDB = (err) => {
   const errors = Object.values(err.errors).map((el) => el.message);
   const message = `Invalid input data. ${errors.join('. ')}`;
   return new AppError(message, 400);
 };
 
-<<<<<<< HEAD
 // ==========================
 // JWT ERROR HANDLERS
 // ==========================
@@ -124,55 +111,10 @@ module.exports = (err, req, res, next) => {
 
   // PRODUCTION
   if (process.env.NODE_ENV === 'production') {
-=======
-const handleJWTError = () =>
-  new AppError('invalid token. Plz try again....', 401);
-
-const handleExpiredToken = () =>
-  new AppError('your token has been expired.plz try again....', 401);
-
-const sendErrorDev = (err, res) => {
-  res.status(err.statusCode).json({
-    status: err.status,
-    error: err,
-    message: err.message,
-    stack: err.stack,
-  });
-};
-const sendErrorProd = (err, res) => {
-  // Operational,trusted error:send message to client
-  if (err.isOperational) {
-    res.status(err.statusCode).json({
-      status: err.status,
-      message: err.message,
-    });
-  }
-  // Programming or other unknoen error:dont leak error details
-  else {
-    // 1] log error
-    console.error('pachi Error', err);
-
-    // 2] Send generic message
-    res.status(500).json({
-      status: 'error',
-      message: 'are yrr su kare error aai gai ne ,Something went wrong',
-    });
-  }
-};
-module.exports = (err, req, res, next) => {
-  //  console.log(err.stack);
-  err.statusCode = err.statusCode || 500;
-  err.status = err.status || 'error';
-
-  if (process.env.NODE_ENV === 'development') {
-    sendErrorDev(err, res);
-  } else if (process.env.NODE_ENV === 'production') {
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
     let error = { ...err };
     error.message = err.message;
     error.name = err.name;
     error.code = err.code;
-<<<<<<< HEAD
 
     if (error.name === 'CastError') error = handleCastErrorDB(error);
     if (error.code === 11000) error = handleDuplicateFieldsDB(error);
@@ -181,18 +123,8 @@ module.exports = (err, req, res, next) => {
     if (error.name === 'JsonWebTokenError') error = handleJWTError();
     if (error.name === 'TokenExpiredError') error = handleExpiredToken();
 
-    console.log(err);
-    console.log(error);
+    // console.log(err);
+    // console.log(error);
     return sendErrorProd(error, req, res);
-=======
-    if (error.name === 'CastError') error = handleCastErrorDB(error);
-    if (error.name === 11000) error = handleDuplicateFieldsDB(error);
-    if (error.name === 'ValidationError')
-      error = handleValidationErrorDB(error);
-    if (error.name === 'JsonWebTokenError') error = handleJWTError(error);
-
-    if (error.name === 'TokenExpiredError') error = handleExpiredToken(error);
-    sendErrorProd(error, res);
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
   }
 };

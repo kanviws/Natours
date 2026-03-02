@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 const Tour = require('../models/tourmodel');
-=======
-const Tour = require('./../models/tourmodel');
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/apperror');
 const factory = require('./../controller/handler');
@@ -22,7 +18,6 @@ exports.getAllTours = factory.getAll(Tour);
 exports.getTour = factory.getOne(Tour, { path: 'reviews' });
 exports.createTour = factory.createOne(Tour);
 exports.updateTour = factory.updateOne(Tour);
-<<<<<<< HEAD
 exports.deleteTour = factory.deleteOne(Tour);
 
 exports.getTourWithin = catchAsync(async (req, res, next) => {
@@ -46,7 +41,7 @@ exports.getTourWithin = catchAsync(async (req, res, next) => {
 });
 
 exports.getTourDistance = catchAsync(async (req, res, next) => {
-  console.log('getTourDistance');
+  // console.log('getTourDistance');
   const { latlng, unit } = req.params;
   const [lat, lng] = latlng.split(',');
   if (!lat || !lng) {
@@ -71,22 +66,6 @@ exports.getTourDistance = catchAsync(async (req, res, next) => {
     },
   });
 });
-=======
-
-exports.deleteTour = factory.deleteOne(Tour);
-// exports.deleteTour = catchAsync(async (req, res, next) => {
-//   const tour = await Tour.findByIdAndDelete(req.params.id);
-//   if (!tour) {
-//     return next(new AppError('No tour found with that ID', 404));
-//   }
-
-//   res.status(201).json({
-//     status: 'success',
-//     data: null,
-//   });
-// });
-
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
 exports.getTourStats = catchAsync(async (req, res, next) => {
   const stats = await Tour.aggregate([
     {

@@ -4,11 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('./../models/usermodel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/apperror');
-<<<<<<< HEAD
 const Email = require('./../utils/email');
-=======
-const sendEmail = require('./../utils/email');
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -40,23 +36,15 @@ const createSendToken = (user, statusCode, res) => {
 
 exports.signup = catchAsync(async (req, res) => {
   const newUser = await User.create(req.body);
-<<<<<<< HEAD
   const url = `${req.protocol}://${req.get('host')}/me`;
-  console.log('URL:', url);
+  // console.log('URL:', url);
   new Email(newUser, url).sendWelcome();
-=======
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
   createSendToken(newUser, 201, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
-<<<<<<< HEAD
   // 1] check if tbhe email and password exist
   const { email, password } = req.body;
-=======
-  const { email, password } = req.body;
-  // 1] check if tbhe email and password exist
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
   if (!email || !password) {
     return next(new AppError('please provide email and password', 400));
   }
@@ -75,7 +63,6 @@ exports.login = catchAsync(async (req, res, next) => {
   // });
 });
 
-<<<<<<< HEAD
 exports.logout = (req, res) => {
   res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 10 * 1000),
@@ -84,8 +71,6 @@ exports.logout = (req, res) => {
   res.status(200).json({ status: 'success' });
 };
 
-=======
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
 exports.protect = catchAsync(async (req, res, next) => {
   // 1] get token and check if it exists
   let token;
@@ -94,19 +79,16 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
-<<<<<<< HEAD
   } else if (req.cookies.jwt) {
     token = req.cookies.jwt;
-=======
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
   }
-  console.log(token);
+  // console.log(token);
   if (!token) {
     return next(new AppError('you are not logged in to get access', 401));
   }
   // 2] validate the token ||verification
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-  console.log(decoded);
+  // console.log(decoded);
   // 3]check if user still exist
   const currentUser = await User.findById(decoded.id);
   if (!currentUser) {
@@ -130,7 +112,6 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-<<<<<<< HEAD
 // logged in
 exports.isloggedIn = async (req, res, next) => {
   if (req.cookies.jwt) {
@@ -153,14 +134,12 @@ exports.isloggedIn = async (req, res, next) => {
 
   next();
 };
-=======
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     // roles:- admin,lead guide
-    console.log('Roles ', roles);
+    // console.log('Roles ', roles);
     if (!roles.includes(req.user.role)) {
-      console.log('User role: ', req.user.role);
+      // console.log('User role: ', req.user.role);
       return next(new AppError('you do not this permisiion to perform', 403));
     }
     next();
@@ -178,7 +157,6 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   const resetToken = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
   // 3 send it to users email
-<<<<<<< HEAD
   try {
     // await sendEmail({
     //   email: user.email,
@@ -187,16 +165,6 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     // });
     const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetpassword/${resetToken}`;
     await new Email(user, resetURL).sendPasswordReset();
-=======
-  const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetpassword/${resetToken}`;
-  const message = `forgot your password? submit a patch req with new and confirm oone to :${resetURL}.\n If you didnt forget your password, plz ignore this email and next time notes ma lakhi lejoo :) `;
-  try {
-    await sendEmail({
-      email: user.email,
-      subject: 'your password reset token (valid for 4 min)',
-      message,
-    });
->>>>>>> b5d24688a2b5b47db6efaddfab57d9f417a9a708
     res.status(200).json({
       status: 'success',
       message: 'token sent to email',
